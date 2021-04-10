@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Websocket server</h1>
-
+</body>
 <script>
 
 let socket = null;
@@ -19,9 +19,20 @@ document.addEventListener("DOMContentLoaded", function(){
     socket.onopen = () => {
         console.log("Successfully Connected!");
     }
+
+    socket.onclose = () => {
+        console.log("Successfully closed!");
+    }
+
+    socket.onerror = (error) => {
+        console.log("Error!");
+    }
+
+    socket.onmessage = msg => {
+        console.log(msg);
+    }
+
 });
 
 </script>
-
-</body>
 </html>

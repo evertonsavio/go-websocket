@@ -4,13 +4,11 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/havyx/golang-websocket/models"
 	"github.com/CloudyKit/jet/v6"
 	"github.com/gorilla/websocket"
 )
 
-/*=======================================================================================
-VARS
-=======================================================================================*/
 var views = jet.NewSet(
 	jet.NewOSFileSystemLoader("./html"),
 	jet.InDevelopmentMode(),
@@ -21,10 +19,8 @@ var upgradeConnection = websocket.Upgrader{
 	CheckOrigin:     func(r *http.Request) bool { return true },
 }
 
-/*=======================================================================================
-FUNCS
+/*FUNC - HOME HANDLER: Render home page
 =======================================================================================*/
-/*--------------------------HOME HANDLER: Render home page-----------------------------*/
 func Home(w http.ResponseWriter, r *http.Request) {
 	err := renderPage(w, "home.jet", nil)
 	if err != nil {
@@ -32,30 +28,21 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//WsJsonResponse defines the response sent back from websocket
-type WsJsonResponse struct {
-	Action      string `json:"action"`
-	Message     string `json:"message"`
-	MessageType string `json:"message_type"`
-}
-
-//WsEndpoint upgrades connection to websocket
+/*FUNC WS ENDPOINT UPGRADE CONNECTION
+=======================================================================================*/
 func WsEndpoint(w http.ResponseWriter, r *http.Request) {
+	
 	ws, err := upgradeConnection.Upgrade(w, r, nil)
-	if err != nil {
-		log.Println(err)
-	}
+	if err != nil { log.Println(err) }
 
 	log.Println("CLIENT CONNECTED TO ENDPOINT")
 
-	var response WsJsonResponse
+	var response models.WsJsonResponse
 	response.Message = `<em><small>Connected to server</small></em>`
 
 	err = ws.WriteJSON(response)
 
-	if err != nil {
-		log.Println(err)
-	}
+	if err != nil { log.Println(err) }
 }
 
 func renderPage(w http.ResponseWriter, tmpl string, data jet.VarMap) error {
