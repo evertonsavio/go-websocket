@@ -8,5 +8,20 @@
 </head>
 <body>
     <h1>Websocket server</h1>
+
+<script>
+
+let socket = null;
+
+document.addEventListener("DOMContentLoaded", function(){
+    
+    socket = new Websocket("ws://127.0.0.1:8080/ws");
+    socket.onopen = () => {
+        console.log("Successfully Connected!");
+    }
+});
+
+</script>
+
 </body>
 </html>
