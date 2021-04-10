@@ -10,5 +10,5 @@ go get github.com/gorilla/websocket
 
 go mod tidy
 
-go run src/evertonsavio/main/*.go
+go run src/evertonsavio/application/*.go
 ```
