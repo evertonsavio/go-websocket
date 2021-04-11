@@ -19,8 +19,8 @@ var wsChan = make(chan types.WsJsonPayload)
 
 var clients = make(map[types.WebSocketConnection]string)
 
-/*FUNC WS ENDPOINT UPGRADE CONNECTION
-=======================================================================================*/
+/*FUNC WEBSOCKET ENDPOINT UPGRADE CONNECTION
+=================================================================================================*/
 func WsEndpoint(w http.ResponseWriter, r *http.Request) {
 	
 	ws, err := upgradeConnection.Upgrade(w, r, nil)
@@ -41,6 +41,8 @@ func WsEndpoint(w http.ResponseWriter, r *http.Request) {
 	go ListenForWs(&conn)
 }
 
+/*GO ROUTINE LISTEN TO WEBSOCKET CONNECTIONS
+=================================================================================================*/
 func ListenForWs(conn *types.WebSocketConnection){
 	defer func() {
 		if r := recover(); r != nil {
@@ -61,6 +63,8 @@ func ListenForWs(conn *types.WebSocketConnection){
 	}
 }
 
+/*LISTEN TO CHANNEL PAYLOAD AND BROADCAST
+=================================================================================================*/
 func ListenToWsChannel(){
 	var response types.WsJsonResponse
 
@@ -73,6 +77,8 @@ func ListenToWsChannel(){
 	}
 }
 
+/*BROADCAST TO ALL OR REMOVE CLIENT CONNECTION
+=================================================================================================*/
 func broadcastToAll(response types.WsJsonResponse){
 	for client := range clients {
 		err := client.WriteJSON(response)
