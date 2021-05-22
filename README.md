@@ -12,3 +12,7 @@ go mod tidy
 
 go run src/evertonsavio/application/*.go
 ```
+
+* https://osintiostom.medium.com/go-gorilla-mux-how-to-get-url-params-fa702901df38
+
+* https://www.alexedwards.net/blog/a-mux-showdown
