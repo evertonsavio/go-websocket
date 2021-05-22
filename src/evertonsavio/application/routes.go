@@ -12,7 +12,7 @@ func routes() http.Handler {
 	mux := pat.New()
 
 	mux.Get("/", http.HandlerFunc(handlers.Home))
-	mux.Get("/ws", http.HandlerFunc(services.WsEndpoint))
+	mux.Get("/ws/:ticket", http.HandlerFunc(services.WsEndpoint))
 
 	return mux
 }

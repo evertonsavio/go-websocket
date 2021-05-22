@@ -24,6 +24,11 @@ var clients = make(map[structs.WebSocketConnection]string)
 =================================================================================================*/
 func WsEndpoint(w http.ResponseWriter, r *http.Request) {
 
+	params := r.URL.Query()
+	ticket := params.Get(":ticket")
+	// w.Write([]byte("Hello " + ticket))
+	log.Println("Client ticket: " + ticket)
+
 	ws, err := upgradeConnection.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println(err)
