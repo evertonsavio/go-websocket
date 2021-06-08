@@ -3,13 +3,14 @@ package main
 import (
 	"fmt"
 
-	"github.com/dgrijalva/jwt-go"
-	"github.com/havyx/golang-websocket/src/evertonsavio/application/services"
 	"log"
 	"net/http"
+
+	"github.com/dgrijalva/jwt-go"
+	"github.com/havyx/golang-websocket/src/evertonsavio/application/services"
 )
 
-func main()  {
+func main() {
 
 	mux := routes()
 
@@ -18,17 +19,17 @@ func main()  {
 
 	log.Println("Starting on port 8080")
 
-// 	token, err := getToken("123123")
-// 	if err != nil {
-// 		fmt.Println(err)
-// 	}
-// 	fmt.Println(token)
+	token, err := getToken("123123")
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(token)
 
-// 	tc, err := verifyToken(token)
-// 	if err != nil {
-// 		fmt.Println(err)
-// 	}
-// 	fmt.Println(tc)
+	tc, err := verifyToken(token)
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println(tc)
 
 	_ = http.ListenAndServe(":8080", mux)
 
